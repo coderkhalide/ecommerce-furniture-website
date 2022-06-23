@@ -9,7 +9,7 @@ import Discover from './Components/Discover/Discover';
 import Testimonial from './Components/Testimonial/Testimonial';
 import Newsletter from './Components/Newsletter/Newsletter';
 import Footer from './Components/Footer/Footer';
-
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 function App() {
   return (
