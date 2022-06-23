@@ -1,7 +1,12 @@
-# parabot React Tailwind CSS project
+# Ecommerce Furniture React Tailwind CSS project
 
-use tools<br/>
-React<br/>
-Tailwind CSS <br/>
+### Technology used
+- React JS
+- React Hooks
+- Tailwind CSS
+- Course API for products 
+- Cool thing
 
-[live](https://parabol-mahadidev7.netlify.app/)
+## Demo
+
+[live Demo](https://ecommerce-furniture-website.netlify.app/)
