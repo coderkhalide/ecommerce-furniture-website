@@ -1,22 +1,30 @@
 import { useEffect, useState } from 'react'
 import ShopItem from './Shopitem'
 import { Bars } from 'react-loader-spinner'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { addItem, selectItems } from "../../redux/slices/basketSlice"
+ 
 const Shop = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(false)
   const [loadedProducts, setLoadedProducts] = useState([])
-
-  const getProducts = async () => {
-    setLoading(true)
-    const response = await fetch('https://course-api.com/react-store-products').then(res => res.json())
-    setProducts(response)
-    setLoadedProducts(createPagination(response))
-    setLoading(false)
-  }
+  const dispatch = useDispatch()
+  const cartItems = useSelector(selectItems)
 
   useEffect(() => {
-    getProducts()
+    (
+      async () => {
+        setLoading(true)
+        const response = await fetch('https://course-api.com/react-store-products', {
+          mode: 'cors',
+          headers: {
+            'Access-Control-Allow-Origin':'*'
+          }
+        }).then(res => res.json()).catch(err => console.log("ERROR: ", err)).finally(() => setLoading(false))
+        setProducts(response)
+        setLoadedProducts(createPagination(response))
+      }
+    )();
   }, []);
 
   const createPagination = (items, limit = 8, offset = 0) => {
@@ -30,9 +38,21 @@ const Shop = () => {
   }
 
   const loadMore = () => {
-    if (loadedProducts.length == products.length) return
+    if (loadedProducts.length === products.length) return
     const newProducts = createPagination(products, 8, loadedProducts.length)
     setLoadedProducts([...loadedProducts, ...newProducts])
+  }
+
+  const addToBasket = (product) => {
+    dispatch(addItem({
+      ...product,
+      quantity: 1
+    }))
+  }
+  
+  const checkItemExists = (id) => {
+    const find = cartItems.filter(item => item.id === id)
+    return !!find.length
   }
 
   return (
@@ -56,10 +76,12 @@ const Shop = () => {
                 <ShopItem
                   key={product?.id}
                   {...product}
+                  onClick={() => addToBasket(product)}
+                  exists={checkItemExists}
                 />
               ))}
             </div>
-            {loadedProducts.length != products.length && (
+            {loadedProducts.length !== products.length && (
               <button onClick={loadMore} className="bg-black mx-auto text-white px-11 py-3 block">Load More</button>
             )}
           </div>
