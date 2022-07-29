@@ -3,6 +3,7 @@ import {
     Route,
 } from "react-router-dom";
 import HomePage from "./HomePage";
+import LoginPage from "./LoginPage";
 import RoutesWrapper from "./RoutesWrapper";
 import SingleProduct from "./SingleProduct";
 
@@ -20,6 +21,7 @@ function Pages() {
                         </main>
                     }
                 />
+                <Route path="login" element={<LoginPage />} />
             </Route>
         </Routes>
     )

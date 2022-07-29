@@ -5,8 +5,7 @@ const Service = () => {
   return (
     <>
       <section className='py-20 overflow-hidden'>
-        <div className="container md:w-5/6 mx-auto grid md:grid-cols-3 grid-cols-1 gap-10 px-2 md:px-0">
-
+        <div className="container md:w-5/6 mx-auto grid md:grid-cols-3 grid-cols-1 gap-1 px-2 md:px-0">
           <ServiceItem
             img="https://cdn-icons-png.flaticon.com/512/869/869019.png"
             title="Fast & Free Shipping"
